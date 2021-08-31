@@ -12,6 +12,29 @@ export const insertProduct = async (product: Product) => {
   return retorno[0].Id as number | undefined
 }
 
+const updateProduct = async (product: Product) => {
+  await dbQuery(`UPDATE product SET name = ?, price = ? WHERE id = ?`, [product.name, product.price, product.id])
+  return getProduct(product.id);
+}
+
+const listProducts = async () => {
+  const retorno = await dbQuery(`SELECT * FROM product`);
+  return retorno as Product[];
+}
+
+const getProduct = async (id: number) => {
+  const retorno = await dbQueryFirst(`SELECT * FROM product WHERE id = ?`, [id]);
+  return retorno as Product | undefined;
+}
+
+const deleteProduct = async (id: number) => {
+  await dbQueryFirst(`DELETE FROM product WHERE id = ?`, [id]);
+}
+
 export const productModel = {
-    insertProduct
+    insertProduct,
+    listProducts,
+    getProduct,
+    deleteProduct,
+    updateProduct
 }

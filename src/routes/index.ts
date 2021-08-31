@@ -1,6 +1,5 @@
-import Router from 'express';
 import { Application } from "express";
-
+import Router from 'express';
 import { productRouter } from "./products";
 
 export const useRoutes = (app: Application) => {
