@@ -1,16 +1,13 @@
-import { badRequest } from "../services/util";
-import { Product,} from '../models/products';
+import { Router } from 'express';
+import { productController } from '../controllers/products';
 
-const insertProduct = (req: Request, res: Response) => {
-  {
-    const product = req.body.product;
-    if (!product) 
-    return badRequest(res, "Produto invalido");
+const productRouter = Router();
+// productRouter.get('/', productController.listProducts);
+// productRouter.get('/:id', productController.getProduct);
+productRouter.post('/', productController.insertProduct);
+// productRouter.put('/:id', productController.updateProduct);
+// productRouter.delete('/:id', productController.deleteProduct);
 
-    if (!product.name) 
-    return badRequest(res, "Informe o nome do produto");
-
-    if (!validateNumber(product.price))
-      return badRequest(res, "Informe o preço");
-  }
-};
+export { 
+    productRouter,
+}
